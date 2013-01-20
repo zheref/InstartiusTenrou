@@ -1,10 +1,11 @@
 <?php
 /**
- * Created by Zheref
- * User: Sergio Daniel Lozano
- * Date: 1/1/13
- * Time: 1:46 AM
+ * @author Instartius Corporation
+ * @package Tenrou
+ * @version 0.0.1
+ * @change 13/01/19/10:58:XX -> Process Code Behind cuando Render hook before
  */
+
 /**
  * Renderiza el archivo con el nombre especificado (sin la extension php)
  * Se asume extension php. Si se requiere cargar otro tipo de archivo, usar
@@ -13,6 +14,7 @@
  */
 function render($nombre)
 {
+    process_code_behind($nombre);
     include(TEMPLATEPATH . '/components/' . $nombre . '.php');
 }
 
@@ -35,6 +37,7 @@ function _r($nombre)
  */
 function begin_html()
 {
+    process_code_behind('begin');
     render('begin');
 }
 
@@ -45,6 +48,7 @@ function begin_html()
  */
 function end_html()
 {
+    process_code_behind('end');
     render('end');
 }
 
@@ -132,5 +136,7 @@ function ins_comment_loop($comment, $args, $depth)
     $GLOBALS['args'] = $args;
     render('commentsloop');
 }
+
+
 
 ?>

@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by Zheref
- * User: Sergio Daniel Lozano
- * Date: 1/1/13
- * Time: 1:41 AM
+ * @author Instartius Corporation
+ * @package Tenrou
+ * @version 0.0.1
+ * @change 13/01/19/10:38:XX -> Agregado metodo process_code_behind
+ * @change 13/01/19/11:34:XX -> Agregada validacion de si CodeBehind para el componente existe en process_code_behind para evitar detencion por componentes que carezcan del CodeBehind
  */
 
 require_once('getfuncs.inc');
@@ -32,11 +33,6 @@ function p($var)
 }
 
 function the_($var) { p($var); }
-
-function _category_link($slug)
-{
-    echo get_category_link(get_category_by_slug($slug));
-}
 
 /**
  * Devuelve la ruta absoluta completa del recurso en el paquete especificado
@@ -99,6 +95,17 @@ function ins_title()
     else if(is_category())
         echo $sitename . ' | Cagegoria "' . get_category_template() . '"';
 
+}
+
+/**
+ * Procesa todo el CodeBehind o logica detras de cierto componente
+ * @param $filename El nombre del archivo/directo/componente a cargar el CodeBehind
+ */
+function process_code_behind($filename)
+{
+    $path = TEMPLATEPATH . '/behind/' . $filename . '.inc';
+    if (file_exists($path))
+        require_once($path);
 }
 
 ?>
